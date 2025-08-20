@@ -1,0 +1,12 @@
+[project]
+name = "genesis-tracer-demo"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "genesis-world>=0.3.1",
+    "pymeshlab==2023.12.post3",
+    "torch>=2.8.0",
+    "torchvision>=0.23.0",
+]
