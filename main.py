@@ -23,6 +23,8 @@ plane = scene.add_entity(
 tracer = scene.add_entity(
     gs.morphs.URDF(
         file  = './urdf/tracer/tracer.urdf',
+        # convexify=False,
+        # decimate=False,
         pos   = (0.0, 0.0, 0.15),
         euler = (0, 0, 0),
     ),
@@ -36,11 +38,11 @@ jnt_names = [
 ]
 dofs_idx = [tracer.get_joint(name).dof_idx_local for name in jnt_names]
 
-for _ in range(1000):
+for _ in range(100000):
     tracer.control_dofs_velocity(
         # Minus sign is a hack to achieve forward motion
         # Probably wheel joint should be rotated to fix this
-        np.array([-10.0, 10.0]),
+        np.array([10.0, 10.0]),
         dofs_idx,
     )
     scene.step()
