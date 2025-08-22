@@ -73,9 +73,9 @@
       <!--<inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />-->
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="meshes/tracer_wheel.dae"/>
+         <cylinder length="0.0787019" radius="0.0605"/>
         <!--<cylinder length="0.0787019" radius="0.0457774"/>-->
       </geometry>
     </visual>
@@ -117,9 +117,9 @@
       <!--<inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />-->
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="meshes/tracer_wheel.dae"/>
+         <cylinder length="0.0787019" radius="0.0605"/>
         <!--<cylinder length="0.0787019" radius="0.0457774"/>-->
       </geometry>
     </visual>
@@ -277,7 +277,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/castor.dae"/>
+        <cylinder length="0.04653" radius="0.036"/>
       </geometry>
     </visual>
     <collision>
@@ -303,7 +303,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/castor.dae"/>
+        <cylinder length="0.04653" radius="0.036"/>
       </geometry>
     </visual>
     <collision>
@@ -329,7 +329,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="meshes/castor.dae"/>
+        <cylinder length="0.04653" radius="0.036"/>
       </geometry>
     </visual>
     <collision>
@@ -356,9 +356,7 @@
     </inertial>
     <visual>
       <geometry>
-        <!--<cylinder length="0.04653" radius="0.036"/>-->
-        <!--<sphere radius="0.0457774"/>-->
-        <mesh filename="meshes/castor.dae"/>
+        <cylinder length="0.04653" radius="0.036"/>
       </geometry>
       <!--<material name="black">
                         <color rgba="255 255 255 1"/>
@@ -368,16 +366,10 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <cylinder length="0.04653" radius="0.036"/>
-        <!-- <cylinder length="0.053" radius="0.0375"/> -->
-        <!--<sphere radius="0.0457774"/>-->
-        <!-- <mesh filename="meshes/castor.dae"/> -->
       </geometry>
     </collision>
   </link>
   <joint name="rl_wheel" type="continuous">
-    <!--<origin
-                  xyz="0.14547 0.20835 -0.07424"
-                  rpy="0 1.57 0" />-->
     <parent link="rl_castor_link"/>
     <child link="rl_wheel_link"/>
     <dynamics damping="0.0" friction="0.0"/>
