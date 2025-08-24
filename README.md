@@ -28,3 +28,5 @@ python3 main.py
 ## Known issues
 
 For some reasons, the model is shaking a lot without reasons. Seems that the root of the issue somewhere in castor wheels. We are trying to identify and fix the issue now.
+
+**Update:**  Genesis Team proposed solutions, see the [issue](https://github.com/Genesis-Embodied-AI/Genesis/issues/1610). They are added into the current branch of this repo.
