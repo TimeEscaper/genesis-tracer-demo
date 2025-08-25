@@ -2,6 +2,8 @@ import torch
 import numpy as np
 import genesis as gs
 
+from scipy.spatial.transform import Rotation as R
+
 
 class DiffDrive:
 
@@ -36,6 +38,10 @@ scene = gs.Scene(
         substeps=10,
         requires_grad=False
     ),
+    vis_options=gs.options.VisOptions(
+            show_link_frame=True,
+            show_world_frame=True,
+        ),
     show_viewer = True,
 )
 
@@ -48,10 +54,9 @@ tracer = scene.add_entity(
         file  = './urdf/akula/akula.urdf',
         decompose_robot_error_threshold=0.4,
         decimate_aggressiveness=0,
-        # convexify=False,
-        # decimate=False,
         pos   = (0.0, 0.0, 0.15),
         euler = (0, 0, 0),
+        merge_fixed_links = False
     ),
 )
 
@@ -69,13 +74,22 @@ scene.add_entity(
                 ),
 )
 
-camera = scene.add_camera()
+camera = scene.add_camera(GUI=True)
 
 bumper = gs.sensors.RigidContactForceGridSensor(tracer)
 
-scene.build()
+scene.build(n_envs=1)
 
-# camera.attach()
+rot_mat = R.from_euler('xyz', [0, 0, -90], degrees=True).as_matrix() @ \
+          R.from_euler('xyz', [0, 90, 0], degrees=True).as_matrix() @ \
+          R.from_euler('xyz', [90, 0, 0], degrees=True).as_matrix() @ \
+          R.from_euler('xyz', [0, 0, 90], degrees=True).as_matrix()
+
+camera.attach(tracer.get_link('camera_optical_link'),
+              np.array([[rot_mat[0, 0], rot_mat[0, 1], rot_mat[0, 2], 0.0],
+                        [rot_mat[1, 0], rot_mat[1, 1], rot_mat[1, 2], 0.0],
+                        [rot_mat[2, 0], rot_mat[2, 1], rot_mat[2, 2], 0.0],
+                        [0.0, 0.0, 0.0, 1.0]]))
 
 jnt_names = [
     'R_wheel_joint',
@@ -91,6 +105,7 @@ for i in range(1000000):
         dofs_idx,
     )
     scene.step()
+    camera.render(rgb=True, depth=False, segmentation=False, normal=False, antialiasing=True, force_render=False)
     grid_data = bumper.read()
     print(grid_data)
 
